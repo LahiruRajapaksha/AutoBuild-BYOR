@@ -1,9 +1,9 @@
 import ballerinax/trigger.google.mail;
 import ballerina/http;
-
+import ballerina/log;
 
 configurable mail:ListenerConfig config = ?; 
-
+configurable string newName = ?; 
 
 listener http:Listener httpListener = new(8090);
 listener mail:Listener webhookListener = new(config, httpListener);
@@ -11,7 +11,7 @@ listener mail:Listener webhookListener = new(config, httpListener);
 service mail:GmailService on webhookListener {
     
     remote function onNewEmail(mail:Message message ) returns error? {
-
+        log:printInfo(newName);
     }
     remote function onNewThread(mail:MailThread thread ) returns error? {
       //Not Implemented
